@@ -19,6 +19,7 @@ class LeadScreenViewModel @Inject constructor(
 
     fun loadApps(): MutableList<App> {
         val apps = appsRepository.provideApps()
+        val result: MutableList<App> = mutableListOf()
 
         val notif = NotificationService()
         Log.d(
@@ -26,7 +27,16 @@ class LeadScreenViewModel @Inject constructor(
         )
 
         Log.d("Apps.size", apps.size.toString())
-        return apps
+
+        for (x in 0..5) {
+            Log.d(
+                "Apps", "name = ${apps[x].name}\n " +
+                        "packageName = ${apps[x].packageName}\n " +
+                        "icon = ${apps[x].icon}"
+            )
+            result.add(apps[x])
+        }
+        return result
     }
 
     fun loadTestApps() = testApps

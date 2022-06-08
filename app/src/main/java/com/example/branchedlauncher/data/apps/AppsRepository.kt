@@ -18,7 +18,7 @@ class AppsRepository @Inject constructor(
      fun provideApps(): MutableList<App> {
         if (allApps.isNotEmpty()) allApps.clear()
         val appIntent = Intent(Intent.ACTION_MAIN, null)
-        appIntent.addCategory(Intent.CATEGORY_LAUNCHER)
+//        appIntent.addCategory(Intent.CATEGORY_APP_FILES)
 
         val ri: List<ResolveInfo> =
             packageManager.queryIntentActivities(appIntent, 0)
