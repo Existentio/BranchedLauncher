@@ -10,6 +10,9 @@ import androidx.navigation.NavController
 import com.example.branchedlauncher.R
 import kotlin.math.abs
 
+/**
+ * Swipe listener and navigation logic for LeadScreenFragment.
+ **/
 
 class LeadScreenSwipeListener(
     context: Context?,

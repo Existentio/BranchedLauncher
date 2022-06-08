@@ -2,10 +2,10 @@ package com.example.branchedlauncher.ui.leadscreen
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -42,7 +42,6 @@ class LeadScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val appsLayouts = attachAppView()
         val appsLayouts = attachAppView()
 
         val clockwiseWiseAnimator = ClockwiseViewAnimator()
@@ -53,7 +52,6 @@ class LeadScreenFragment : Fragment() {
         startAppViewAnimation(appsLayouts, clockwiseWiseAnimator)
 
         binding.leadLayout.setOnTouchListener(touchListener)
-        loadApps()
     }
 
     override fun onDestroyView() {
@@ -77,14 +75,29 @@ class LeadScreenFragment : Fragment() {
 
             val appName = appView.createAppName(x.name)
             val appIcon = appView.createAppIcon(x.icon)
+
             val appItem = appView.attachViewsToAppLayout(appLayout, appIcon, appName)
+
+            appItem.layoutParams.width = 300
+            appItem.layoutParams.height = 300
+            appItem.foregroundGravity =  Gravity.CENTER_HORIZONTAL
+            appItem.orientation = LinearLayout.VERTICAL
+
+            appIcon.layoutParams.width = 144
+            appIcon.layoutParams.height = 144
+            appIcon.foregroundGravity = Gravity.CENTER
+
+            appName.foregroundGravity = Gravity.CENTER_HORIZONTAL
+            appName.maxEms = 6
+            appName.maxLines = 2
+
             appsLayouts += appItem
 
             appIcon.setOnClickListener {
                 Log.d("onTouched", appIcon.toString())
                 val intent = appName.context.packageManager.getLaunchIntentForPackage(
-                        x.packageName
-                    )
+                    x.packageName
+                )
                 this.startActivity(intent);
             }
         }

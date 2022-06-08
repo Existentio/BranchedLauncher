@@ -1,10 +1,7 @@
 package com.example.branchedlauncher.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MotionEventCompat
 import com.example.branchedlauncher.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

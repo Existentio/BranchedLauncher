@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.branchedlauncher.R
 import com.example.branchedlauncher.databinding.FragmentSearchBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SearchScreenFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null

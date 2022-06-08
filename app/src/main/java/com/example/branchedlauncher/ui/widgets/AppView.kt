@@ -2,11 +2,9 @@ package com.example.branchedlauncher.ui.widgets
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.LinearLayout.VERTICAL
 import android.widget.TextView
 
 class AppView(
@@ -21,24 +19,7 @@ class AppView(
         return layout
     }
 
-    fun createAppLayout(): LinearLayout {
-        val appLayout = LinearLayout(context)
-        val params = LinearLayout.LayoutParams(
-            300,
-            300
-        )
-        params.setMargins(
-            0,
-            0,
-            0,
-            0
-        )
-
-        appLayout.layoutParams = params
-        appLayout.orientation = VERTICAL
-        appLayout.setHorizontalGravity(Gravity.HORIZONTAL_GRAVITY_MASK)
-        return appLayout
-    }
+    fun createAppLayout(): LinearLayout = LinearLayout(context)
 
     fun createAppIcon(appIconResourceId: Int): ImageView {
         val imageView = ImageView(context)
@@ -55,8 +36,6 @@ class AppView(
     fun createAppName(appName: String): TextView {
         val textView = TextView(context)
         textView.text = appName
-        textView.maxLines = 2
-        textView.maxEms = 6
         return textView
     }
 
