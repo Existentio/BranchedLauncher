@@ -25,9 +25,9 @@ class NotificationService : NotificationListenerService() {
             val title = sbm.getNotification().extras.getString("android.title");
             val text = sbm.getNotification().extras.getString("android.text");
             val package_name = sbm.packageName;
-            Log.v("Notification title is:", title!!);
-            Log.v("Notification text is:", text!!);
-            Log.v("Notification Package Name is:", package_name);
+            Log.d("Notification title is:", title!!);
+            Log.d("Notification text is:", text!!);
+            Log.d("Notification Package Name is:", package_name);
         }
     }
 

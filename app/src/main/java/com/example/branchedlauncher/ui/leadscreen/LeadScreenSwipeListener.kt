@@ -11,7 +11,7 @@ import com.example.branchedlauncher.R
 import kotlin.math.abs
 
 
-class OnSwipeListener(
+class LeadScreenSwipeListener(
     context: Context?,
     private val navController: NavController
 ) : View.OnTouchListener {

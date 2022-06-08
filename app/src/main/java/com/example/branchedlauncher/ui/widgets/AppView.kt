@@ -1,6 +1,7 @@
 package com.example.branchedlauncher.ui.widgets
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
@@ -45,6 +46,12 @@ class AppView(
         return imageView
     }
 
+    fun createAppIcon(appIconResourceId: Drawable): ImageView {
+        val imageView = ImageView(context)
+        imageView.setImageDrawable(appIconResourceId)
+        return imageView
+    }
+
     fun createAppName(appName: String): TextView {
         val textView = TextView(context)
         textView.text = appName
@@ -52,5 +59,6 @@ class AppView(
         textView.maxEms = 6
         return textView
     }
+
 
 }

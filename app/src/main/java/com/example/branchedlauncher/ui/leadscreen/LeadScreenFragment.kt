@@ -1,17 +1,17 @@
 package com.example.branchedlauncher.ui.leadscreen
 
-import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.branchedlauncher.databinding.FragmentLeadBinding
+import com.example.branchedlauncher.model.App
 import com.example.branchedlauncher.ui.animation.AnimationPattern
 import com.example.branchedlauncher.ui.animation.ClockwiseViewAnimator
 import com.example.branchedlauncher.ui.animation.ViewAnimator
@@ -27,7 +27,7 @@ class LeadScreenFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var navController: NavController
-    private lateinit var touchListener : View.OnTouchListener
+    private lateinit var touchListener: View.OnTouchListener
 
 
     override fun onCreateView(
@@ -41,15 +41,18 @@ class LeadScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        val appsLayouts = attachAppView()
         val appsLayouts = attachAppView()
+
         val clockwiseWiseAnimator = ClockwiseViewAnimator()
+
+        navController = findNavController()
+        touchListener = LeadScreenSwipeListener(requireContext(), navController)
 
         startAppViewAnimation(appsLayouts, clockwiseWiseAnimator)
 
-        navController = findNavController()
-        touchListener = OnSwipeListener(requireContext(), navController)
         binding.leadLayout.setOnTouchListener(touchListener)
-
+        loadApps()
     }
 
     override fun onDestroyView() {
@@ -58,11 +61,37 @@ class LeadScreenFragment : Fragment() {
     }
 
 
-    private fun loadApps() = viewModel.loadApps()
+    private fun loadApps(): MutableList<App> = viewModel.loadApps()
 
     private fun loadTestApps(): Map<String, Int> = viewModel.loadTestApps()
 
     private fun attachAppView(): List<LinearLayout> {
+        val appView = AppView(requireContext())
+        val testApps = loadApps()
+        val appsLayouts = mutableListOf<LinearLayout>()
+
+        for (x in testApps) {
+            val appLayout = appView.createAppLayout()
+            binding.leadLayout.addView(appLayout)
+
+            val appName = appView.createAppName(x.name)
+            val appIcon = appView.createAppIcon(x.icon)
+            val appItem = appView.attachViewsToAppLayout(appLayout, appIcon, appName)
+            appsLayouts += appItem
+
+            appIcon.setOnClickListener {
+                Log.d("onTouched", appIcon.toString())
+                val intent = appName.context.packageManager.getLaunchIntentForPackage(
+                        x.packageName
+                    )
+                this.startActivity(intent);
+            }
+        }
+
+        return appsLayouts
+    }
+
+    private fun attachAppViewTestData(): List<LinearLayout> {
         val appView = AppView(requireContext())
         val testApps = loadTestApps()
         val appsLayouts = mutableListOf<LinearLayout>()
@@ -75,10 +104,22 @@ class LeadScreenFragment : Fragment() {
             val appIcon = appView.createAppIcon(x.value)
             val tt = appView.attachViewsToAppLayout(appLayout, appIcon, appName)
             appsLayouts += tt
+
+            appIcon.setOnClickListener {
+                Log.d("onTouched", appIcon.toString())
+            }
         }
 
         return appsLayouts
     }
+//
+//    private fun attachClickListener(appIcon: ImageView, appName: String) {
+//        appIcon.setOnClickListener {
+//            val intent = appName
+//                .getLaunchIntentForPackage(appManager.getListCode(appsForSearch, position));
+//            this.startActivity(intent);
+//        }
+//    }
 
     private fun startAppViewAnimation(
         appsLayouts: List<LinearLayout>,
@@ -98,13 +139,12 @@ class LeadScreenFragment : Fragment() {
                 sweepAngle = animationPattern[x]["sweepAngle"]!!
             )
 
-            appsLayouts[x].setOnTouchListener(touchListener)
-
             viewAnimator.startAnimation(
                 animator,
                 20000L,
                 22
             )
+
         }
 
     }

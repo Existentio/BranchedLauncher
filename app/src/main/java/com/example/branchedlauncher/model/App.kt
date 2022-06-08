@@ -4,8 +4,8 @@ import android.graphics.drawable.Drawable
 
 data class App(
     val packageName: String,
-    val appName: String,
-    val label: Drawable
+    val name: String,
+    val icon: Drawable
 //    val id: Int
 
 )
