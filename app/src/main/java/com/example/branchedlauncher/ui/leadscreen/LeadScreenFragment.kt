@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -112,14 +113,6 @@ class LeadScreenFragment : Fragment() {
 
         return appsLayouts
     }
-//
-//    private fun attachClickListener(appIcon: ImageView, appName: String) {
-//        appIcon.setOnClickListener {
-//            val intent = appName
-//                .getLaunchIntentForPackage(appManager.getListCode(appsForSearch, position));
-//            this.startActivity(intent);
-//        }
-//    }
 
     private fun startAppViewAnimation(
         appsLayouts: List<LinearLayout>,

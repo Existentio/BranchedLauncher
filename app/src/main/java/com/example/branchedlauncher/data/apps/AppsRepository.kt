@@ -13,12 +13,10 @@ class AppsRepository @Inject constructor(
     private val packageManager = context.packageManager
 
     private var allApps = mutableListOf<App>()
-//    private var filteredApps = mutableListOf<App>()
 
      fun provideApps(): MutableList<App> {
         if (allApps.isNotEmpty()) allApps.clear()
         val appIntent = Intent(Intent.ACTION_MAIN, null)
-//        appIntent.addCategory(Intent.CATEGORY_APP_FILES)
 
         val ri: List<ResolveInfo> =
             packageManager.queryIntentActivities(appIntent, 0)
