@@ -17,6 +17,10 @@ import com.example.branchedlauncher.ui.animation.AnimationPattern
 import com.example.branchedlauncher.ui.animation.ClockwiseViewAnimator
 import com.example.branchedlauncher.ui.animation.ViewAnimator
 import com.example.branchedlauncher.ui.widgets.AppView
+import com.example.branchedlauncher.ui.widgets.AppView.AppViewConstants.APP_ICON_HEIGHT_MEDIUM
+import com.example.branchedlauncher.ui.widgets.AppView.AppViewConstants.APP_ICON_WIDTH_MEDIUM
+import com.example.branchedlauncher.ui.widgets.AppView.AppViewConstants.APP_LAYOUT_HEIGHT
+import com.example.branchedlauncher.ui.widgets.AppView.AppViewConstants.APP_LAYOUT_WIDTH
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -66,10 +70,10 @@ class LeadScreenFragment : Fragment() {
 
     private fun attachAppView(): List<LinearLayout> {
         val appView = AppView(requireContext())
-        val testApps = loadApps()
+        val apps = loadApps()
         val appsLayouts = mutableListOf<LinearLayout>()
 
-        for (x in testApps) {
+        for (x in apps) {
             val appLayout = appView.createAppLayout()
             binding.leadLayout.addView(appLayout)
 
@@ -78,13 +82,14 @@ class LeadScreenFragment : Fragment() {
 
             val appItem = appView.attachViewsToAppLayout(appLayout, appIcon, appName)
 
-            appItem.layoutParams.width = 300
-            appItem.layoutParams.height = 300
+            appItem.layoutParams.width = APP_LAYOUT_WIDTH
+            appItem.layoutParams.height = APP_LAYOUT_HEIGHT
             appItem.foregroundGravity =  Gravity.CENTER_HORIZONTAL
             appItem.orientation = LinearLayout.VERTICAL
 
-            appIcon.layoutParams.width = 144
-            appIcon.layoutParams.height = 144
+            appIcon.layoutParams.width = APP_ICON_WIDTH_MEDIUM
+            appIcon.layoutParams.height = APP_ICON_HEIGHT_MEDIUM
+
             appIcon.foregroundGravity = Gravity.CENTER
 
             appName.foregroundGravity = Gravity.CENTER_HORIZONTAL
@@ -98,7 +103,7 @@ class LeadScreenFragment : Fragment() {
                 val intent = appName.context.packageManager.getLaunchIntentForPackage(
                     x.packageName
                 )
-                this.startActivity(intent);
+                this.startActivity(intent)
             }
         }
 

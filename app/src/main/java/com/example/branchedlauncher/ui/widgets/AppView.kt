@@ -39,5 +39,20 @@ class AppView(
         return textView
     }
 
+    object AppViewConstants {
+
+        const val APP_LAYOUT_WIDTH = 300
+        const val APP_LAYOUT_HEIGHT = 300
+
+        const val APP_ICON_WIDTH_SMALL = 96
+        const val APP_ICON_HEIGHT_SMALL = 96
+
+        const val APP_ICON_WIDTH_MEDIUM = 144
+        const val APP_ICON_HEIGHT_MEDIUM = 144
+
+        const val APP_ICON_WIDTH_LARGE = 240
+        const val APP_ICON_HEIGHT_LARGE = 240
+    }
+
 
 }
