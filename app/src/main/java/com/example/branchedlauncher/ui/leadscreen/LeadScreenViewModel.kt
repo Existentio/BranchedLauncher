@@ -17,6 +17,8 @@ class LeadScreenViewModel @Inject constructor(
     private val appsRepository: AppsRepository
 ) : BaseViewModel(application) {
 
+    private val maxAppsSize = 6
+
     fun loadApps(): MutableList<App> {
         val apps = appsRepository.provideApps()
         val result: MutableList<App> = mutableListOf()
@@ -28,7 +30,7 @@ class LeadScreenViewModel @Inject constructor(
 
         Log.d("Apps.size", apps.size.toString())
 
-        for (x in 0..5) {
+        for (x in 0 until maxAppsSize) {
             Log.d(
                 "Apps", "name = ${apps[x].name}\n " +
                         "packageName = ${apps[x].packageName}\n " +
