@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,12 +14,13 @@ import com.example.branchedlauncher.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchScreenFragment : Fragment() {
+class SearchScreenFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private var _binding: FragmentSearchBinding? = null
     private val viewModel: SearchScreenViewModel by viewModels()
 
     private val binding get() = _binding!!
+    private var adapter = binding.rvAppsContainer.adapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,11 +28,20 @@ class SearchScreenFragment : Fragment() {
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
+        val textQuery = binding.searchBar.query
+
         binding.rvAppsContainer.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvAppsContainer.adapter = SearchAppsAdapter(
+
+        adapter = SearchAppsAdapter(
             requireContext(),
-            viewModel
+            viewModel,
+            textQuery
         )
+//        binding.searchBar.setOnQueryTextListener(SearchView.OnQueryTextListener)) {
+//
+//        }
+
+
         return binding.root
 
     }
@@ -48,5 +59,14 @@ class SearchScreenFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        adapter
+        return false
     }
 }

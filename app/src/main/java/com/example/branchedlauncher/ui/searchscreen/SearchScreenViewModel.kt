@@ -15,5 +15,20 @@ class SearchScreenViewModel @Inject constructor(
 
     fun loadApps(): MutableList<App> = appsRepository.provideApps()
 
+    fun filterApps(
+        apps: MutableList<App>,
+        queryText: CharSequence
+    ): List<App> {
+        val filteredApps: MutableList<App> = mutableListOf()
+        for (x in apps) {
+            x.name
+                .filter { it.toString().startsWith(queryText, ignoreCase = true) }
+
+            filteredApps.add(x)
+        }
+
+
+        return filteredApps
+    }
 
 }
