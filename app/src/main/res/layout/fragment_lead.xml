@@ -4,6 +4,7 @@
     android:id="@+id/lead_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     tools:context=".ui.leadscreen.LeadScreenFragment">
 
     <TextView
@@ -13,7 +14,6 @@
         android:gravity="center_horizontal"
         android:text="Hello"
         tools:ignore="MissingConstraints" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

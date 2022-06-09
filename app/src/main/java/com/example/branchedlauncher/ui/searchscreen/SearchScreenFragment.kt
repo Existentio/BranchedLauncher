@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.branchedlauncher.R
 import com.example.branchedlauncher.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,6 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchScreenFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
+    private val viewModel: SearchScreenViewModel by viewModels()
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,6 +29,15 @@ class SearchScreenFragment : Fragment() {
     ): View? {
 
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
+
+
+        binding.rvAppsContainer.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvAppsContainer.adapter = SearchAppsAdapter(
+            requireContext(),
+            viewModel
+        )
+        // Specify fixed size to improve performance
+//        binding.rvContainer.setHasFixedSize(true)
         return binding.root
 
     }
@@ -32,12 +45,10 @@ class SearchScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SearchFragment_to_LeadFragment)
-        }
         binding.btnCancel.setOnClickListener {
             findNavController().navigate(R.id.action_SearchFragment_to_LeadFragment)
         }
+
 
     }
 

@@ -76,7 +76,6 @@ class LeadScreenFragment : Fragment() {
         for (x in apps) {
             val appLayout = appView.createAppLayout()
             binding.leadLayout.addView(appLayout)
-
             val appName = appView.createAppName(x.name)
             val appIcon = appView.createAppIcon(x.icon)
 
@@ -84,12 +83,11 @@ class LeadScreenFragment : Fragment() {
 
             appItem.layoutParams.width = APP_LAYOUT_WIDTH
             appItem.layoutParams.height = APP_LAYOUT_HEIGHT
-            appItem.foregroundGravity =  Gravity.CENTER_HORIZONTAL
+            appItem.foregroundGravity = Gravity.CENTER_HORIZONTAL
             appItem.orientation = LinearLayout.VERTICAL
 
             appIcon.layoutParams.width = APP_ICON_WIDTH_MEDIUM
             appIcon.layoutParams.height = APP_ICON_HEIGHT_MEDIUM
-
             appIcon.foregroundGravity = Gravity.CENTER
 
             appName.foregroundGravity = Gravity.CENTER_HORIZONTAL
