@@ -18,26 +18,19 @@ class SearchScreenFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val viewModel: SearchScreenViewModel by viewModels()
 
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-
 
         binding.rvAppsContainer.layoutManager = LinearLayoutManager(requireContext())
         binding.rvAppsContainer.adapter = SearchAppsAdapter(
             requireContext(),
             viewModel
         )
-        // Specify fixed size to improve performance
-//        binding.rvContainer.setHasFixedSize(true)
         return binding.root
 
     }
