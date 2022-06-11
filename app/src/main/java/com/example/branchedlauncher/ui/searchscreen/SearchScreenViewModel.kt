@@ -20,7 +20,7 @@ class SearchScreenViewModel @Inject constructor(
         textQuery: CharSequence
     ): MutableList<App> {
         val filteredApps: MutableList<App> = mutableListOf()
-        if (textQuery != "")
+        if (textQuery.trim() != "")
             for (elem in 0 until apps.size) {
                 apps[elem].takeIf { apps[elem].name.contains(textQuery) }
                     ?.let { filteredApps.add(it) }

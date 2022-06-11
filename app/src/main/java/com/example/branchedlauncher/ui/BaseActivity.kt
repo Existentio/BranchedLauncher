@@ -1,5 +1,6 @@
 package com.example.branchedlauncher.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.branchedlauncher.databinding.ActivityMainBinding
@@ -15,12 +16,6 @@ class BaseActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
     }
-
-
-
-
-
 
 }

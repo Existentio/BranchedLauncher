@@ -1,5 +1,6 @@
 package com.example.branchedlauncher.ui.leadscreen
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -43,6 +44,7 @@ class LeadScreenFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -96,7 +98,7 @@ class LeadScreenFragment : Fragment() {
             appsLayouts += appItem
 
             appIcon.setOnClickListener {
-                Log.d("onTouched", appIcon.toString())
+                Log.d("onTouched", x.name)
                 val intent = appName.context.packageManager.getLaunchIntentForPackage(
                     x.packageName
                 )
@@ -118,8 +120,8 @@ class LeadScreenFragment : Fragment() {
 
             val appName = appView.createAppName(x.key)
             val appIcon = appView.createAppIcon(x.value)
-            val tt = appView.attachViewsToAppLayout(appLayout, appIcon, appName)
-            appsLayouts += tt
+            val appItem = appView.attachViewsToAppLayout(appLayout, appIcon, appName)
+            appsLayouts += appItem
 
             appIcon.setOnClickListener {
                 Log.d("onTouched", appIcon.toString())
@@ -136,15 +138,15 @@ class LeadScreenFragment : Fragment() {
         val animationPattern = AnimationPattern()
             .defineAnimationPattern(viewAnimator, appsLayouts.size)
 
-        for (x in 0 until appsLayouts.size) {
+        for (elem in 0 until appsLayouts.size) {
             val animator = viewAnimator.constructAnimation(
-                view = appsLayouts[x],
-                left = animationPattern[x]["left"]!!,
-                top = animationPattern[x]["top"]!!,
-                right = animationPattern[x]["right"]!!,
-                bottom = animationPattern[x]["bottom"]!!,
-                startAngle = animationPattern[x]["startAngle"]!!,
-                sweepAngle = animationPattern[x]["sweepAngle"]!!
+                view = appsLayouts[elem],
+                left = animationPattern[elem]["left"]!!,
+                top = animationPattern[elem]["top"]!!,
+                right = animationPattern[elem]["right"]!!,
+                bottom = animationPattern[elem]["bottom"]!!,
+                startAngle = animationPattern[elem]["startAngle"]!!,
+                sweepAngle = animationPattern[elem]["sweepAngle"]!!
             )
 
             viewAnimator.startAnimation(
@@ -155,6 +157,9 @@ class LeadScreenFragment : Fragment() {
 
         }
     }
+
+
+
 
 
 }

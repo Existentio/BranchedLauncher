@@ -19,16 +19,14 @@ class NotificationService : NotificationListenerService() {
     @Override
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
-//        val sbm: StatusBarNotification
-        // We can read notification while posted.
-        for (sbm: StatusBarNotification in this.activeNotifications) {
-            val title = sbm.getNotification().extras.getString("android.title");
-            val text = sbm.getNotification().extras.getString("android.text");
-            val package_name = sbm.packageName;
-            Log.d("Notification title is:", title!!);
-            Log.d("Notification text is:", text!!);
-            Log.d("Notification Package Name is:", package_name);
-        }
+//        for (sbm: StatusBarNotification in this.activeNotifications) {
+//            val title = sbm.getNotification().extras.getString("android.title");
+//            val text = sbm.getNotification().extras.getString("android.text");
+//            val package_name = sbm.packageName;
+//            Log.d("Notification title is:", title!!);
+//            Log.d("Notification text is:", text!!);
+//            Log.d("Notification Package Name is:", package_name);
+//        }
     }
 
 
