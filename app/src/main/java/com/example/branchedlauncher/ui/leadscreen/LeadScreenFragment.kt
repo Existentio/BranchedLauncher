@@ -52,10 +52,9 @@ class LeadScreenFragment : Fragment() {
 
         navController = findNavController()
         touchListener = LeadScreenSwipeListener(requireContext(), navController)
+        binding.leadLayout.setOnTouchListener(touchListener)
 
         startAppViewAnimation(appsLayouts, clockwiseWiseAnimator)
-
-        binding.leadLayout.setOnTouchListener(touchListener)
     }
 
     override fun onDestroyView() {
@@ -155,8 +154,8 @@ class LeadScreenFragment : Fragment() {
             )
 
         }
-
     }
+
 
 }
 

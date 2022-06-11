@@ -31,16 +31,10 @@ class SearchScreenFragment : Fragment() {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
         binding.rvAppsContainer.layoutManager = LinearLayoutManager(requireContext())
-
-        adapter = SearchAppsAdapter(
-            requireContext(),
-            viewModel
-        )
-
+        adapter = SearchAppsAdapter(requireContext(), viewModel)
         binding.rvAppsContainer.adapter = adapter
 
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
