@@ -3,6 +3,8 @@ package com.example.branchedlauncher.data.apps
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ResolveInfo
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.branchedlauncher.model.App
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
