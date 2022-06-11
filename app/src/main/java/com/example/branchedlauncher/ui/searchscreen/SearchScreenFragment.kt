@@ -1,8 +1,11 @@
 package com.example.branchedlauncher.ui.searchscreen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -14,13 +17,12 @@ import com.example.branchedlauncher.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchScreenFragment : Fragment(), SearchView.OnQueryTextListener {
+class SearchScreenFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
-    private val viewModel: SearchScreenViewModel by viewModels()
-
     private val binding get() = _binding!!
-    private var adapter = binding.rvAppsContainer.adapter
+    private val viewModel: SearchScreenViewModel by viewModels()
+    private lateinit var adapter: SearchAppsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,19 +30,14 @@ class SearchScreenFragment : Fragment(), SearchView.OnQueryTextListener {
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
-        val textQuery = binding.searchBar.query
-
         binding.rvAppsContainer.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = SearchAppsAdapter(
             requireContext(),
-            viewModel,
-            textQuery
+            viewModel
         )
-//        binding.searchBar.setOnQueryTextListener(SearchView.OnQueryTextListener)) {
-//
-//        }
 
+        binding.rvAppsContainer.adapter = adapter
 
         return binding.root
 
@@ -48,12 +45,8 @@ class SearchScreenFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.btnCancel.setOnClickListener {
-            findNavController().navigate(R.id.action_SearchFragment_to_LeadFragment)
-        }
-
-
+        performNavigation()
+        performSearch()
     }
 
     override fun onDestroyView() {
@@ -61,12 +54,39 @@ class SearchScreenFragment : Fragment(), SearchView.OnQueryTextListener {
         _binding = null
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        return false
+    private fun performNavigation() {
+        binding.btnCancel.setOnClickListener {
+            findNavController().navigate(R.id.action_SearchFragment_to_LeadFragment)
+        }
     }
 
-    override fun onQueryTextChange(newText: String?): Boolean {
-        adapter
-        return false
+
+    private fun performSearch() {
+        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                search(query)
+                Log.d("searchSubmit", query.toString())
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                search(newText)
+                Log.d("searchChange", newText.toString())
+                return true
+            }
+        })
+    }
+
+    private fun search(textQuery: String?) {
+        adapter.filteredApps.clear()
+        adapter.filteredApps =
+            viewModel.filterApps(viewModel.loadApps(), textQuery as CharSequence)
+        Log.d("filteredApps.size", adapter.filteredApps.size.toString())
+
+        if (adapter.filteredApps.isEmpty())
+            binding.rvAppsContainer.visibility = INVISIBLE
+        else binding.rvAppsContainer.visibility = VISIBLE
+
+        adapter.notifyDataSetChanged()
     }
 }

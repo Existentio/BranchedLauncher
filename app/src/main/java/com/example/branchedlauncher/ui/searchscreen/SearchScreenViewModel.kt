@@ -17,17 +17,14 @@ class SearchScreenViewModel @Inject constructor(
 
     fun filterApps(
         apps: MutableList<App>,
-        queryText: CharSequence
-    ): List<App> {
+        textQuery: CharSequence
+    ): MutableList<App> {
         val filteredApps: MutableList<App> = mutableListOf()
-        for (x in apps) {
-            x.name
-                .filter { it.toString().startsWith(queryText, ignoreCase = true) }
-
-            filteredApps.add(x)
-        }
-
-
+        if (textQuery != "")
+            for (x in 0 until apps.size) {
+                val b = apps[x].takeIf { apps[x].name.contains(textQuery) }
+                b?.let { filteredApps.add(it) }
+            } else filteredApps.clear()
         return filteredApps
     }
 
