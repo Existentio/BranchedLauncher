@@ -55,7 +55,7 @@ class SearchScreenFragment : Fragment() {
     }
 
     private fun performSearch() {
-        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 search(query)
                 Log.d("searchSubmit", query.toString())
