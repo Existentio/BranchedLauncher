@@ -1,21 +1,30 @@
 package com.example.branchedlauncher.ui.leadscreen
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
-import android.service.notification.StatusBarNotification
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
+import com.example.branchedlauncher.R
 import com.example.branchedlauncher.databinding.FragmentLeadBinding
 import com.example.branchedlauncher.model.App
-import com.example.branchedlauncher.services.NotificationService
 import com.example.branchedlauncher.ui.animation.AnimationPattern
 import com.example.branchedlauncher.ui.animation.ClockwiseViewAnimator
 import com.example.branchedlauncher.ui.animation.ViewAnimator
@@ -30,19 +39,18 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LeadScreenFragment : Fragment() {
 
+    private val notificationId: Int = 11
+    private val CHANNEL_ID: String = "100"
     private var _binding: FragmentLeadBinding? = null
     private val viewModel: LeadScreenViewModel by viewModels()
     private val binding get() = _binding!!
-
-    private lateinit var navController: NavController
-    private lateinit var touchListener: View.OnTouchListener
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLeadBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -51,21 +59,24 @@ class LeadScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val appsLayouts = attachAppView()
-
         val clockwiseWiseAnimator = ClockwiseViewAnimator()
 
-        navController = findNavController()
-        touchListener = LeadScreenSwipeListener(requireContext(), navController)
+        val navController = findNavController()
+        val touchListener = LeadScreenSwipeListener(requireContext(), navController)
         binding.leadLayout.setOnTouchListener(touchListener)
 
         startAppViewAnimation(appsLayouts, clockwiseWiseAnimator)
+
+        //temporal implementation for debugging
+        createNotificationChannel()
+        createNotification()
+        listenNotifications()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 
     private fun loadApps(): MutableList<App> = viewModel.loadApps()
 
@@ -107,7 +118,6 @@ class LeadScreenFragment : Fragment() {
                 this.startActivity(intent)
             }
         }
-
         return appsLayouts
     }
 
@@ -129,7 +139,6 @@ class LeadScreenFragment : Fragment() {
                 Log.d("onTouched", appIcon.toString())
             }
         }
-
         return appsLayouts
     }
 
@@ -152,21 +161,61 @@ class LeadScreenFragment : Fragment() {
             )
 
             viewAnimator.startAnimation(
-                animator,
-                20000L,
-                22
+                animator, 20000L, -1
             )
-
         }
     }
 
-
-    fun listenNotifications() {
-       val b = NotificationService()
+    private fun listenNotifications() {
+        LocalBroadcastManager
+            .getInstance(requireContext())
+            .registerReceiver(onNotice, IntentFilter("test"))
     }
 
+    private val onNotice: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent) {
+            Log.d("BroadcastReceiver.LeadScreen", "onReceive()")
+            val pack = intent.getStringExtra("package")
+            val title = intent.getStringExtra("title")
+            val text = intent.getStringExtra("text")
+            val ticker = intent.getStringExtra("ticker")
 
+            var notifications = mutableListOf<String>()
+            text?.let { notifications.add(it) }
 
+            Log.d(
+                "notifList", notifications.size.toString()
+                        + "\ntext: ${notifications[0]}"
+            )
+        }
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.channel_name)
+            val descriptionText = getString(R.string.channel_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager =
+                requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun createNotification() {
+        val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_baseline_pest_control_rodent_violet_24)
+            .setContentTitle("Title")
+            .setContentText("Notification great text")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(requireContext())) {
+            notify(notificationId, builder.build())
+        }
+
+    }
 
 
 }

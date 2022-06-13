@@ -3,7 +3,6 @@ package com.example.branchedlauncher.ui.animation
 import android.animation.ObjectAnimator
 import android.view.View
 
-
 interface ViewAnimator {
     fun constructAnimation(
         view: View,
@@ -23,5 +22,8 @@ interface ViewAnimator {
         animDuration: Long,
         repeatCount: Int = 0
     )
+
 }
+
+
 

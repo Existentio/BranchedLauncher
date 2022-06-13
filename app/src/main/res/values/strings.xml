@@ -16,4 +16,5 @@
     <string name="btn_cancel">Отменить</string>
     <string name="general_apps_info">Приложения</string>
     <string name="general_contacts_info">Контакты</string>
+    <string name="channel_description">test_channel_description</string>
 </resources>
