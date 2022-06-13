@@ -2,6 +2,7 @@ package com.example.branchedlauncher.ui.leadscreen
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.service.notification.StatusBarNotification
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.branchedlauncher.databinding.FragmentLeadBinding
 import com.example.branchedlauncher.model.App
+import com.example.branchedlauncher.services.NotificationService
 import com.example.branchedlauncher.ui.animation.AnimationPattern
 import com.example.branchedlauncher.ui.animation.ClockwiseViewAnimator
 import com.example.branchedlauncher.ui.animation.ViewAnimator
@@ -156,6 +158,11 @@ class LeadScreenFragment : Fragment() {
             )
 
         }
+    }
+
+
+    fun listenNotifications() {
+       val b = NotificationService()
     }
 
 

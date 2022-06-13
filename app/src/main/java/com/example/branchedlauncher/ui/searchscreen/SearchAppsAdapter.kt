@@ -17,13 +17,11 @@ class SearchAppsAdapter(
     private val viewModel: SearchScreenViewModel
 ) : RecyclerView.Adapter<SearchAppsAdapter.SearchAppsViewHolder>() {
 
-    private val apps: MutableList<App> = viewModel.loadApps()
     var filteredApps: MutableList<App> = mutableListOf()
 
     class SearchAppsViewHolder(view: View?) : RecyclerView.ViewHolder(view!!) {
         val appIcon = view?.findViewById<ImageView>(R.id.app_icon)
         val appName = view?.findViewById<TextView>(R.id.app_name)
-
 
     }
 
