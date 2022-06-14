@@ -1,4 +1,4 @@
-package com.example.branchedlauncher.ui.animation
+package com.example.branchedlauncher.ui.animation.patterns
 
 class ClockwiseAnimationPattern {
      fun performAnimation(elemsCount: Int): MutableList<Map<String, Float>> {

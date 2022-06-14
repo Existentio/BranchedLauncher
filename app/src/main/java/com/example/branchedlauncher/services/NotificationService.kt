@@ -1,5 +1,7 @@
 package com.example.branchedlauncher.services
 
+import android.app.Notification.EXTRA_TEXT
+import android.app.Notification.EXTRA_TITLE
 import android.content.Context
 import android.content.Intent
 import android.service.notification.NotificationListenerService
@@ -22,25 +24,22 @@ class NotificationService : NotificationListenerService() {
         super.onNotificationPosted(sbn)
         Log.d("NotificationService", "onNotificationPosted()")
 
-        var ticker = ""
-        if (sbn!!.notification.tickerText != null) {
-            ticker = sbn.notification.tickerText.toString()
-        }
-        val extras = sbn.notification.extras
-        val title = extras.getString("android.title")
-        val text = extras.getCharSequence("android.text")
 
-        val package_name = sbn.packageName
+        val extras = sbn?.notification?.extras
+        val id = sbn?.id.toString()
+        val packageName = sbn?.packageName
+        val title = extras?.getString(EXTRA_TITLE)
+        val text = extras?.getCharSequence(EXTRA_TEXT)
+
         Log.d("TagNotif.title", title!!)
         Log.d("TagNotif.text", text!! as String)
-        Log.d("TagNotif.package_name", package_name)
-        Log.d("TagNotif.ticker", ticker)
+        Log.d("TagNotif.package_name", packageName!!)
 
-        val intent = Intent("test")
-        intent.putExtra("package", package_name)
+        val intent = Intent("OBSERVE_APP_NOTIFICATIONS")
+        intent.putExtra("id", id)
+        intent.putExtra("packageName", packageName)
         intent.putExtra("title", title)
         intent.putExtra("text", text)
-        intent.putExtra("ticker", ticker);
 
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
 

@@ -1,4 +1,7 @@
-package com.example.branchedlauncher.ui.animation
+package com.example.branchedlauncher.ui.animation.patterns
+
+import com.example.branchedlauncher.ui.animation.ClockwiseViewAnimator
+import com.example.branchedlauncher.ui.animation.ViewAnimator
 
 class AnimationPattern {
 

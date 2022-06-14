@@ -1,10 +1,13 @@
 package com.example.branchedlauncher.ui.leadscreen
 
 import android.app.Application
+import android.content.IntentFilter
 import android.util.Log
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.branchedlauncher.data.apps.AppsRepository
 import com.example.branchedlauncher.data.apps.testApps
 import com.example.branchedlauncher.model.App
+import com.example.branchedlauncher.services.NotificationBroadcastReceiver
 import com.example.branchedlauncher.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -20,6 +23,7 @@ class LeadScreenViewModel @Inject constructor(
 
     fun loadApps(): MutableList<App> {
         val apps = appsRepository.provideApps()
+        receiveNotifications()
         val result: MutableList<App> = mutableListOf()
 
         for (x in 0 until maxAppsSize) {
@@ -39,5 +43,13 @@ class LeadScreenViewModel @Inject constructor(
 
     fun loadTestApps() = testApps
 
+    private fun receiveNotifications() {
+        LocalBroadcastManager
+            .getInstance(context)
+            .registerReceiver(
+                NotificationBroadcastReceiver(),
+                IntentFilter("OBSERVE_APP_NOTIFICATIONS")
+            )
+    }
 
 }

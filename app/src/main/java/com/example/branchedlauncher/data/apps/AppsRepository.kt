@@ -41,4 +41,6 @@ class AppsRepository @Inject constructor(
         return allApps.distinctBy { it.packageName } as ArrayList
     }
 
+
+
 }

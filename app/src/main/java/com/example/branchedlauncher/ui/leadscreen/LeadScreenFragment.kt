@@ -3,11 +3,7 @@ package com.example.branchedlauncher.ui.leadscreen
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -20,12 +16,11 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import com.example.branchedlauncher.R
 import com.example.branchedlauncher.databinding.FragmentLeadBinding
 import com.example.branchedlauncher.model.App
-import com.example.branchedlauncher.ui.animation.AnimationPattern
+import com.example.branchedlauncher.ui.animation.patterns.AnimationPattern
 import com.example.branchedlauncher.ui.animation.ClockwiseViewAnimator
 import com.example.branchedlauncher.ui.animation.ViewAnimator
 import com.example.branchedlauncher.ui.widgets.AppView
@@ -70,7 +65,9 @@ class LeadScreenFragment : Fragment() {
         //temporal implementation for debugging
         createNotificationChannel()
         createNotification()
-        listenNotifications()
+        createNotification2()
+        createNotification3()
+//        listenNotifications()
     }
 
     override fun onDestroyView() {
@@ -166,30 +163,6 @@ class LeadScreenFragment : Fragment() {
         }
     }
 
-    private fun listenNotifications() {
-        LocalBroadcastManager
-            .getInstance(requireContext())
-            .registerReceiver(onNotice, IntentFilter("test"))
-    }
-
-    private val onNotice: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent) {
-            Log.d("BroadcastReceiver.LeadScreen", "onReceive()")
-            val pack = intent.getStringExtra("package")
-            val title = intent.getStringExtra("title")
-            val text = intent.getStringExtra("text")
-            val ticker = intent.getStringExtra("ticker")
-
-            var notifications = mutableListOf<String>()
-            text?.let { notifications.add(it) }
-
-            Log.d(
-                "notifList", notifications.size.toString()
-                        + "\ntext: ${notifications[0]}"
-            )
-        }
-    }
-
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = getString(R.string.channel_name)
@@ -217,6 +190,32 @@ class LeadScreenFragment : Fragment() {
 
     }
 
+    private fun createNotification2() {
+        val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_baseline_pest_control_rodent_violet_24)
+            .setContentTitle("Title 2")
+            .setContentText("Notification great text 2")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+            with(NotificationManagerCompat.from(requireContext())) {
+                notify(12, builder.build())
+        }
+
+    }
+
+
+    private fun createNotification3() {
+        val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_baseline_pest_control_rodent_violet_24)
+            .setContentTitle("Title 3")
+            .setContentText("Notification great text 3")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(requireContext())) {
+            notify(13, builder.build())
+        }
+
+    }
 
 }
 
