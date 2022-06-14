@@ -5,7 +5,6 @@ import android.content.IntentFilter
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.branchedlauncher.data.apps.AppsRepository
-import com.example.branchedlauncher.data.apps.testApps
 import com.example.branchedlauncher.model.App
 import com.example.branchedlauncher.services.NotificationBroadcastReceiver
 import com.example.branchedlauncher.ui.BaseViewModel
@@ -40,8 +39,6 @@ class LeadScreenViewModel @Inject constructor(
 
         return result
     }
-
-    fun loadTestApps() = testApps
 
     private fun receiveNotifications() {
         LocalBroadcastManager

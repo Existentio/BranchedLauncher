@@ -67,7 +67,6 @@ class LeadScreenFragment : Fragment() {
         createNotification()
         createNotification2()
         createNotification3()
-//        listenNotifications()
     }
 
     override fun onDestroyView() {
@@ -76,8 +75,6 @@ class LeadScreenFragment : Fragment() {
     }
 
     private fun loadApps(): MutableList<App> = viewModel.loadApps()
-
-    private fun loadTestApps(): Map<String, Int> = viewModel.loadTestApps()
 
     private fun attachAppView(): List<LinearLayout> {
         val appView = AppView(requireContext())
@@ -113,27 +110,6 @@ class LeadScreenFragment : Fragment() {
                     x.packageName
                 )
                 this.startActivity(intent)
-            }
-        }
-        return appsLayouts
-    }
-
-    private fun attachAppViewTestData(): List<LinearLayout> {
-        val appView = AppView(requireContext())
-        val testApps = loadTestApps()
-        val appsLayouts = mutableListOf<LinearLayout>()
-
-        for (x in testApps) {
-            val appLayout = appView.createAppLayout()
-            binding.leadLayout.addView(appLayout)
-
-            val appName = appView.createAppName(x.key)
-            val appIcon = appView.createAppIcon(x.value)
-            val appItem = appView.attachViewsToAppLayout(appLayout, appIcon, appName)
-            appsLayouts += appItem
-
-            appIcon.setOnClickListener {
-                Log.d("onTouched", appIcon.toString())
             }
         }
         return appsLayouts
@@ -202,7 +178,6 @@ class LeadScreenFragment : Fragment() {
         }
 
     }
-
 
     private fun createNotification3() {
         val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
