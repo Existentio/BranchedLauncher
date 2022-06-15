@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/LeadFragment"
-        android:name="com.example.branchedlauncher.ui.leadscreen.LeadScreenFragment"
+        android:name="com.existentio.branchedlauncher.ui.leadscreen.LeadScreenFragment"
         android:label="@string/lead_fragment_label"
         tools:layout="@layout/fragment_lead">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SearchFragment"
-        android:name="com.example.branchedlauncher.ui.searchscreen.SearchScreenFragment"
+        android:name="com.existentio.branchedlauncher.ui.searchscreen.SearchScreenFragment"
         android:label="@string/search_fragment_label"
         tools:layout="@layout/fragment_search">
 
