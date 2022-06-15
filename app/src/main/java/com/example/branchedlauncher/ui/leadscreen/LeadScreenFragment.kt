@@ -76,9 +76,11 @@ class LeadScreenFragment : Fragment() {
 
     private fun loadApps(): MutableList<App> = viewModel.loadApps()
 
+    private fun loadRandomApps(): MutableList<App> = viewModel.loadRandomApps()
+
     private fun attachAppView(): List<LinearLayout> {
         val appView = AppView(requireContext())
-        val apps = loadApps()
+        val apps = loadRandomApps()
         val appsLayouts = mutableListOf<LinearLayout>()
 
         for (x in apps) {
