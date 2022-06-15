@@ -4,9 +4,10 @@ import android.app.Notification.EXTRA_TEXT
 import android.app.Notification.EXTRA_TITLE
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 
@@ -19,27 +20,24 @@ class NotificationService : NotificationListenerService() {
         context = applicationContext
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @Override
-    override fun onNotificationPosted(sbn: StatusBarNotification?) {
+    override fun onNotificationPosted(sbn: StatusBarNotification) {
         super.onNotificationPosted(sbn)
-        Log.d("NotificationService", "onNotificationPosted()")
 
-
-        val extras = sbn?.notification?.extras
-        val id = sbn?.id.toString()
-        val packageName = sbn?.packageName
+        val extras = sbn.notification?.extras
+        val id = sbn.id
+        val packageName = sbn.packageName
+        val postTime = sbn.postTime.toString()
         val title = extras?.getString(EXTRA_TITLE)
-        val text = extras?.getCharSequence(EXTRA_TEXT)
-
-        Log.d("TagNotif.title", title!!)
-        Log.d("TagNotif.text", text!! as String)
-        Log.d("TagNotif.package_name", packageName!!)
+        val message = extras?.getCharSequence(EXTRA_TEXT)
 
         val intent = Intent("OBSERVE_APP_NOTIFICATIONS")
         intent.putExtra("id", id)
         intent.putExtra("packageName", packageName)
         intent.putExtra("title", title)
-        intent.putExtra("text", text)
+        intent.putExtra("message", message)
+        intent.putExtra("postTime", postTime)
 
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
 

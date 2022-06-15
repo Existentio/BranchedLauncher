@@ -4,23 +4,24 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.example.branchedlauncher.model.Notification
 
 class NotificationBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent) {
-        val id = intent.getStringExtra("id")
-        val packageName = intent.getStringExtra("packageName")
-        val title = intent.getStringExtra("title")
-        val text = intent.getStringExtra("text")
+        val id = intent.getIntExtra("id", 0)
+        val packageName = intent.getStringExtra("packageName")!!
+        val title = intent.getStringExtra("title")!!
+        val message = intent.getStringExtra("message")!!
+        val postTime = intent.getStringExtra("postTime")!!
 
-        var notifications = mutableListOf<String>()
-        id?.let { notifications.add(it) }
-//        text?.let { notifications.add(it) }
+        val notifications = mutableListOf<Notification>()
+        notifications.add(Notification(id, packageName, title, message, postTime))
 
         Log.d(
             "notifList", notifications.size.toString()
                     + "\ntext: ${notifications[0]}"
-                    + "\nid : $id"
         )
     }
+
 }

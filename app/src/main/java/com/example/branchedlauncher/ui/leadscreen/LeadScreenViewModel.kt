@@ -11,6 +11,7 @@ import com.example.branchedlauncher.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+private const val MAX_APPS_SIZE = 6
 
 @HiltViewModel
 class LeadScreenViewModel @Inject constructor(
@@ -18,14 +19,12 @@ class LeadScreenViewModel @Inject constructor(
     private val appsRepository: AppsRepository
 ) : BaseViewModel(application) {
 
-    private val maxAppsSize = 6
-
     fun loadApps(): MutableList<App> {
         val apps = appsRepository.provideApps()
         receiveNotifications()
         val result: MutableList<App> = mutableListOf()
 
-        for (x in 0 until maxAppsSize) {
+        for (x in 0 until MAX_APPS_SIZE) {
             Log.d(
                 "Apps", "name = ${apps[x].name}\n " +
                         "packageName = ${apps[x].packageName}\n " +
@@ -33,7 +32,6 @@ class LeadScreenViewModel @Inject constructor(
             )
             result.add(apps[x])
         }
-
         Log.d("Apps.size", apps.size.toString())
         Log.d("result.size", result.size.toString())
 
@@ -47,6 +45,8 @@ class LeadScreenViewModel @Inject constructor(
                 NotificationBroadcastReceiver(),
                 IntentFilter("OBSERVE_APP_NOTIFICATIONS")
             )
+
     }
+
 
 }
