@@ -8,7 +8,7 @@ Minimalistic launcher with a central animated view.
 
 
 ## How to install?
-* <a href="https://https://play.google.com/store/apps/details?id=com.existentio.branchedlauncher"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=60px /></a>
+* <a href="https://play.google.com/store/apps/details?id=com.existentio.branchedlauncher"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=60px /></a>
 * get latest release version from github
 
 ## Upcoming features
