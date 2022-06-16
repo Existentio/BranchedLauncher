@@ -9,11 +9,11 @@ Minimalistic launcher with a central animated view.
 
 ## How to install?
 * <a href="https://play.google.com/store/apps/details?id=com.existentio.branchedlauncher"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=60px /></a>
-* get latest release version from github
+* or just get latest release version from github.
 
 ## Upcoming features
-* Animated central upps will be sorted based on notifications count in ascending order
-* Static container for apps selected by person
-* Core widgets: weather, calendar
-* Settings modal menu
-* New animations
+* Animated central apps will be sorted based on notifications count in an ascending order.
+* Static container for apps selected by person.
+* Core widgets: weather, calendar.
+* Settings modal menu.
+* New animations.
