@@ -13,8 +13,9 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="btn_cancel">Отменить</string>
-    <string name="general_apps_info">Приложения</string>
-    <string name="general_contacts_info">Контакты</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="general_apps_info">Apps</string>
+    <string name="general_contacts_info">Contacts</string>
     <string name="channel_description">test_channel_description</string>
+    <string name="search_view_hint">Search</string>
 </resources>

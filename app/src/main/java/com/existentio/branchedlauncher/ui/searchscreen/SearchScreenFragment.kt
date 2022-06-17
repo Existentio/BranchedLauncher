@@ -76,8 +76,9 @@ class SearchScreenFragment : Fragment() {
             viewModel.filterApps(viewModel.loadApps(), textQuery as CharSequence)
         Log.d("filteredApps.size", adapter.filteredApps.size.toString())
 
-        if (adapter.filteredApps.isEmpty()) binding.rvAppsContainer.visibility = INVISIBLE
-        else binding.rvAppsContainer.visibility = VISIBLE
+        if (adapter.filteredApps.isEmpty())
+            binding.materialCardViewRvAppsContainer.visibility = INVISIBLE
+        else binding.materialCardViewRvAppsContainer.visibility = VISIBLE
 
         adapter.notifyDataSetChanged()
     }

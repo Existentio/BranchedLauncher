@@ -26,7 +26,7 @@
             android:background="@android:color/darker_gray"
             android:focusableInTouchMode="true"
             android:focusedByDefault="true"
-            app:defaultQueryHint="Поиск"
+            app:defaultQueryHint="@string/search_view_hint"
             app:iconifiedByDefault="false"
             app:queryBackground="@android:color/transparent"
             tools:ignore="MissingConstraints" />
@@ -62,6 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
+        android:visibility="gone"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:layout_constraintStart_toEndOf="@+id/general_apps_info"

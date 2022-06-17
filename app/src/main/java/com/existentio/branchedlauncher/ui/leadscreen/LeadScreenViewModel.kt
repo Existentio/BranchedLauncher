@@ -42,9 +42,8 @@ class LeadScreenViewModel @Inject constructor(
     fun loadRandomApps(): MutableList<App> {
         val apps = loadApps().shuffled()
         val result: MutableList<App> = mutableListOf()
-        for (x in 0 until MAX_APPS_SIZE) {
+        for (x in 0 until MAX_APPS_SIZE)
             result.add(apps[x])
-        }
         return result
     }
 
