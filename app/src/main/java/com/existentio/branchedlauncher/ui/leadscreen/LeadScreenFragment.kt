@@ -55,6 +55,7 @@ class LeadScreenFragment : Fragment() {
 
         startNonStaticAppViewAnimation(appsLayouts, clockwiseWiseAnimator)
         attachStaticAppViewContainer()
+        attachAppsFolder()
 
         //temporal implementation for debugging
 //        createNotificationChannel()
@@ -128,6 +129,15 @@ class LeadScreenFragment : Fragment() {
                 )
                 this.startActivity(intent)
             }
+
+
+        }
+    }
+
+    private fun attachAppsFolder() {
+        binding.ivFolder.setOnClickListener {
+            binding.mtcvFolderContent.visibility = View.VISIBLE
+            onResume()
         }
     }
 
@@ -154,6 +164,7 @@ class LeadScreenFragment : Fragment() {
             )
         }
     }
+
 
 //    private fun createNotificationChannel() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
