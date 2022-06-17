@@ -83,11 +83,11 @@ class LeadScreenFragment : Fragment() {
         val apps = loadRandomApps()
         val appsLayouts = mutableListOf<LinearLayout>()
 
-        for (x in apps) {
+        for (x in 0 until apps.size) {
             val appLayout = appView.createAppLayout()
             binding.leadLayout.addView(appLayout)
-            val appName = appView.createAppName(x.name)
-            val appIcon = appView.createAppIcon(x.icon)
+            val appName = appView.createAppName(apps[x].name)
+            val appIcon = appView.createAppIcon(apps[x].icon)
 
             val appItem = appView.attachViewsToAppLayout(appLayout, appIcon, appName)
 
@@ -105,15 +105,18 @@ class LeadScreenFragment : Fragment() {
             appName.maxLines = 2
 
             appsLayouts += appItem
+            appsLayouts[x].gravity = Gravity.CENTER
 
             appIcon.setOnClickListener {
-                Log.d("onTouched", x.name)
+                Log.d("onTouched", apps[x].name)
                 val intent = appName.context.packageManager.getLaunchIntentForPackage(
-                    x.packageName
+                    apps[x].packageName
                 )
                 this.startActivity(intent)
             }
+
         }
+
         return appsLayouts
     }
 
