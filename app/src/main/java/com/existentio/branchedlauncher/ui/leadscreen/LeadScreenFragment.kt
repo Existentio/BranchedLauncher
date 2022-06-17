@@ -1,10 +1,6 @@
 package com.existentio.branchedlauncher.ui.leadscreen
 
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context.NOTIFICATION_SERVICE
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -12,12 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.existentio.branchedlauncher.R
 import com.existentio.branchedlauncher.databinding.FragmentLeadBinding
 import com.existentio.branchedlauncher.model.App
 import com.existentio.branchedlauncher.ui.animation.patterns.AnimationPattern
@@ -53,14 +46,15 @@ class LeadScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val appsLayouts = attachAppView()
+        val appsLayouts = attachNonStaticAppViewContainer()
         val clockwiseWiseAnimator = ClockwiseViewAnimator()
 
         val navController = findNavController()
         val touchListener = LeadScreenSwipeListener(requireContext(), navController)
         binding.leadLayout.setOnTouchListener(touchListener)
 
-        startAppViewAnimation(appsLayouts, clockwiseWiseAnimator)
+        startNonStaticAppViewAnimation(appsLayouts, clockwiseWiseAnimator)
+        attachStaticAppViewContainer()
 
         //temporal implementation for debugging
 //        createNotificationChannel()
@@ -78,7 +72,7 @@ class LeadScreenFragment : Fragment() {
 
     private fun loadRandomApps(): MutableList<App> = viewModel.loadRandomApps()
 
-    private fun attachAppView(): List<LinearLayout> {
+    private fun attachNonStaticAppViewContainer(): List<LinearLayout> {
         val appView = AppView(requireContext())
         val apps = loadRandomApps()
         val appsLayouts = mutableListOf<LinearLayout>()
@@ -120,7 +114,24 @@ class LeadScreenFragment : Fragment() {
         return appsLayouts
     }
 
-    private fun startAppViewAnimation(
+    private fun attachStaticAppViewContainer() {
+        val apps = loadApps().take(4)
+        binding.ivStaticApp1.setImageDrawable(apps[0].icon)
+        binding.ivStaticApp2.setImageDrawable(apps[1].icon)
+        binding.ivStaticApp3.setImageDrawable(apps[2].icon)
+        binding.ivStaticApp4.setImageDrawable(apps[3].icon)
+
+        for (x in 0 until binding.mtcvStaticAppsContainer.childCount) {
+            binding.mtcvStaticAppsContainer.getChildAt(x).setOnClickListener {
+                val intent = context?.packageManager?.getLaunchIntentForPackage(
+                    apps[x].packageName
+                )
+                this.startActivity(intent)
+            }
+        }
+    }
+
+    private fun startNonStaticAppViewAnimation(
         appsLayouts: List<LinearLayout>,
         viewAnimator: ViewAnimator
     ) {
