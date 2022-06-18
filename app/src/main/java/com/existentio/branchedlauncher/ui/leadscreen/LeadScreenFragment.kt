@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.existentio.branchedlauncher.R
 import com.existentio.branchedlauncher.databinding.FragmentLeadBinding
 import com.existentio.branchedlauncher.model.App
 import com.existentio.branchedlauncher.ui.animation.patterns.AnimationPattern
@@ -32,6 +34,7 @@ class LeadScreenFragment : Fragment() {
     private var _binding: FragmentLeadBinding? = null
     private val viewModel: LeadScreenViewModel by viewModels()
     private val binding get() = _binding!!
+    private lateinit var navController : NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,13 +52,13 @@ class LeadScreenFragment : Fragment() {
         val appsLayouts = attachNonStaticAppViewContainer()
         val clockwiseWiseAnimator = ClockwiseViewAnimator()
 
-        val navController = findNavController()
+         navController = findNavController()
         val touchListener = LeadScreenSwipeListener(requireContext(), navController)
         binding.leadLayout.setOnTouchListener(touchListener)
 
         startNonStaticAppViewAnimation(appsLayouts, clockwiseWiseAnimator)
         attachStaticAppViewContainer()
-        attachAppsFolder()
+        attachCommandLineEntryPoint()
 
         //temporal implementation for debugging
 //        createNotificationChannel()
@@ -81,9 +84,9 @@ class LeadScreenFragment : Fragment() {
         for (x in 0 until apps.size) {
             val appLayout = appView.createAppLayout()
             binding.leadLayout.addView(appLayout)
+
             val appName = appView.createAppName(apps[x].name)
             val appIcon = appView.createAppIcon(apps[x].icon)
-
             val appItem = appView.attachViewsToAppLayout(appLayout, appIcon, appName)
 
             appItem.layoutParams.width = APP_LAYOUT_WIDTH
@@ -134,10 +137,9 @@ class LeadScreenFragment : Fragment() {
         }
     }
 
-    private fun attachAppsFolder() {
-        binding.ivFolder.setOnClickListener {
-            binding.mtcvFolderContent.visibility = View.VISIBLE
-            onResume()
+    private fun attachCommandLineEntryPoint() {
+        binding.mtcvCommandLine.setOnClickListener {
+            navController.navigate(R.id.action_LeadFragment_to_CommandLineFragment)
         }
     }
 

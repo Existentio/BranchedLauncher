@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">BranchedLauncher</string>
     <string name="title_activity_main">MainActivity</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="lead_fragment_label">Lead Fragment</string>
     <string name="search_fragment_label">Search Fragment</string>
+    <string name="folder_fragment_label">Folder Fragment</string>
+    <string name="command_line_fragment_label">Command line Fragment</string>
+
     <string name="channel_name">Channel name</string>
 
     <string name="next">Next</string>

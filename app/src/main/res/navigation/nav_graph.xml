@@ -14,6 +14,11 @@
         <action
             android:id="@+id/action_LeadFragment_to_SearchFragment"
             app:destination="@id/SearchFragment" />
+
+        <action
+            android:id="@+id/action_LeadFragment_to_CommandLineFragment"
+            app:destination="@id/CommandLineFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/SearchFragment"
@@ -24,5 +29,18 @@
         <action
             android:id="@+id/action_SearchFragment_to_LeadFragment"
             app:destination="@id/LeadFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/CommandLineFragment"
+        android:name="com.existentio.branchedlauncher.ui.commandline.CommandLineFragment"
+        android:label="@string/command_line_fragment_label"
+        tools:layout="@layout/command_line_fragment">
+
+        <action
+            android:id="@+id/action_CommandLineFragment_to_LeadFragment"
+            app:destination="@id/LeadFragment" />
+
     </fragment>
 </navigation>

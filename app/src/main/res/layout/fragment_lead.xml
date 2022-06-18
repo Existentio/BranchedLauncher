@@ -89,6 +89,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mtcv_folder_container"
         android:layout_width="60dp"
+        android:visibility="gone"
         android:layout_height="60dp"
         android:layout_margin="16dp"
         android:alpha="1"
@@ -109,28 +110,6 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mtcv_folder_content"
-        android:layout_width="60dp"
-        android:layout_height="400dp"
-        android:layout_margin="16dp"
-        android:alpha="1"
-        app:cardBackgroundColor="@color/test"
-        app:cardCornerRadius="8dp"
-        android:visibility="invisible"
-        app:cardElevation="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/mtcv_folder_container"
-        app:layout_constraintEnd_toEndOf="@+id/mtcv_folder_container"
-        app:layout_constraintStart_toStartOf="@+id/mtcv_folder_container"
-        tools:ignore="MissingConstraints">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvt2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </com.google.android.material.card.MaterialCardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
