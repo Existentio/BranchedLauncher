@@ -4,8 +4,7 @@ Simple opensource android launcher.
 Minimalistic launcher with a central animated view.
 
 ## How does it look like?
-![app_github](https://user-images.githubusercontent.com/107051502/173917424-4d72d335-1b16-4028-a842-60d7ddf42e56.gif)
-
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/107051502/174456047-77cac895-fa06-4d03-802c-d678fde04797.gif)
 
 ## How to install?
 * <a href="https://play.google.com/store/apps/details?id=com.existentio.branchedlauncher"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=60px /></a>
