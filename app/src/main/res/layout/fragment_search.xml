@@ -47,10 +47,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/general_apps_info"
+        android:id="@+id/tv_general_apps_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
+        android:visibility="gone"
         android:text="@string/general_apps_info"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -65,8 +66,8 @@
         android:visibility="gone"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
-        app:layout_constraintStart_toEndOf="@+id/general_apps_info"
-        app:layout_constraintTop_toTopOf="@+id/general_apps_info"
+        app:layout_constraintStart_toEndOf="@+id/tv_general_apps_info"
+        app:layout_constraintTop_toTopOf="@+id/tv_general_apps_info"
         tools:ignore="MissingConstraints">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -78,9 +79,9 @@
             android:scrollbarSize="6dp"
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical"
-            app:layout_constraintStart_toEndOf="@+id/general_apps_info"
-            app:layout_constraintStart_toStartOf="@+id/general_apps_info"
-            app:layout_constraintTop_toBottomOf="@+id/general_apps_info" />
+            app:layout_constraintStart_toEndOf="@+id/tv_general_apps_info"
+            app:layout_constraintStart_toStartOf="@+id/tv_general_apps_info"
+            app:layout_constraintTop_toBottomOf="@+id/tv_general_apps_info" />
     </com.google.android.material.card.MaterialCardView>
 
 <!--    <TextView-->
