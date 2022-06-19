@@ -29,8 +29,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LeadScreenFragment : Fragment() {
 
-    private val notificationId: Int = 11
-    private val CHANNEL_ID: String = "100"
     private var _binding: FragmentLeadBinding? = null
     private val viewModel: LeadScreenViewModel by viewModels()
     private val binding get() = _binding!!
@@ -59,12 +57,6 @@ class LeadScreenFragment : Fragment() {
         startNonStaticAppViewAnimation(appsLayouts, clockwiseWiseAnimator)
         attachStaticAppViewContainer()
         attachCommandLineEntryPoint()
-
-        //temporal implementation for debugging
-//        createNotificationChannel()
-//        createNotification()
-//        createNotification2()
-//        createNotification3()
     }
 
     override fun onDestroyView() {
@@ -106,7 +98,6 @@ class LeadScreenFragment : Fragment() {
             appsLayouts[x].gravity = Gravity.CENTER
 
             appIcon.setOnClickListener {
-                Log.d("onTouched", apps[x].name)
                 val intent = appName.context.packageManager.getLaunchIntentForPackage(
                     apps[x].packageName
                 )
@@ -166,60 +157,6 @@ class LeadScreenFragment : Fragment() {
             )
         }
     }
-
-
-//    private fun createNotificationChannel() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            val name = getString(R.string.channel_name)
-//            val descriptionText = getString(R.string.channel_description)
-//            val importance = NotificationManager.IMPORTANCE_DEFAULT
-//            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-//                description = descriptionText
-//            }
-//            val notificationManager: NotificationManager =
-//                requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-//            notificationManager.createNotificationChannel(channel)
-//        }
-//    }
-//
-//    private fun createNotification() {
-//        val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
-//            .setSmallIcon(R.drawable.ic_baseline_pest_control_rodent_violet_24)
-//            .setContentTitle("Title")
-//            .setContentText("Notification great text")
-//            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//
-//        with(NotificationManagerCompat.from(requireContext())) {
-//            notify(notificationId, builder.build())
-//        }
-//
-//    }
-//
-//    private fun createNotification2() {
-//        val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
-//            .setSmallIcon(R.drawable.ic_baseline_pest_control_rodent_violet_24)
-//            .setContentTitle("Title 2")
-//            .setContentText("Notification great text 2")
-//            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//
-//            with(NotificationManagerCompat.from(requireContext())) {
-//                notify(12, builder.build())
-//        }
-//
-//    }
-//
-//    private fun createNotification3() {
-//        val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
-//            .setSmallIcon(R.drawable.ic_baseline_pest_control_rodent_violet_24)
-//            .setContentTitle("Title 3")
-//            .setContentText("Notification great text 3")
-//            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//
-//        with(NotificationManagerCompat.from(requireContext())) {
-//            notify(13, builder.build())
-//        }
-//
-//    }
 
 
 }

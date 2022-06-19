@@ -51,10 +51,6 @@ class LeadScreenViewModel @Inject constructor(
         return mutableListOf()
     }
 
-    fun loadFolderApps(): MutableList<App> {
-        return mutableListOf()
-    }
-
     private fun receiveNotifications() {
         LocalBroadcastManager
             .getInstance(context)
