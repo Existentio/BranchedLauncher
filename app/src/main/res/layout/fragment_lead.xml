@@ -68,6 +68,7 @@
         android:foregroundGravity="center_horizontal"
         app:cardBackgroundColor="@color/black"
         app:cardCornerRadius="8dp"
+        android:visibility="gone"
         app:cardElevation="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

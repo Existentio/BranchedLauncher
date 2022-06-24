@@ -23,7 +23,7 @@ class LeadScreenViewModel @Inject constructor(
         val apps = appsRepository.provideApps()
         val result: MutableList<App> = mutableListOf()
 
-        receiveNotifications()
+//        receiveNotifications()
 
         for (x in 0 until MAX_APPS_SIZE) {
             Log.d(
