@@ -102,7 +102,7 @@ class LeadScreenFragment : Fragment() {
                 val intent = appName.context.packageManager.getLaunchIntentForPackage(
                     apps[x].packageName
                 )
-                this.startActivity(intent)
+                startActivity(intent)
             }
 
         }
