@@ -57,20 +57,20 @@ class SearchScreenFragment : Fragment() {
     private fun performSearch() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                search(query)
+                searchApps(query)
                 Log.d("searchSubmit", query.toString())
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                search(newText)
+                searchApps(newText)
                 Log.d("searchChange", newText.toString())
                 return true
             }
         })
     }
 
-    private fun search(textQuery: String?) {
+    private fun searchApps(textQuery: String?) {
         adapter.filteredApps.clear()
         adapter.filteredApps =
             viewModel.filterApps(viewModel.loadApps(), textQuery as CharSequence)
