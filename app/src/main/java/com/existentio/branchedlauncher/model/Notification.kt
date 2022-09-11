@@ -8,3 +8,4 @@ data class Notification(
     val postTime: String
 )
 
+//todo  format postTime to yyyymmdd hh:mm:ss
