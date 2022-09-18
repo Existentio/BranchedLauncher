@@ -2,7 +2,6 @@ package com.existentio.branchedlauncher.data.apps
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ApplicationInfo
 import android.content.pm.ResolveInfo
 import com.existentio.branchedlauncher.model.App
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -14,7 +13,6 @@ class AppsRepository @Inject constructor(
     private val packageManager = context.packageManager
 
     private var allApps = mutableListOf<App>()
-    private lateinit var applicationInfo: ApplicationInfo
 
     fun provideApps(): MutableList<App> {
         if (allApps.isNotEmpty()) allApps.clear()
@@ -22,25 +20,24 @@ class AppsRepository @Inject constructor(
 
         val ri: List<ResolveInfo> =
             packageManager.queryIntentActivities(appIntent, 0)
-        return extractAppsFromOS(ri)
+        return extractInstalledAppsFromOS(ri)
     }
 
-    private fun extractAppsFromOS(apps: List<ResolveInfo>): MutableList<App> {
+    private fun extractInstalledAppsFromOS(apps: List<ResolveInfo>): MutableList<App> {
         for (ri in apps) {
             val packageName = ri.activityInfo.packageName
             val icon = ri.activityInfo.loadIcon(packageManager)
-            applicationInfo = packageManager.getApplicationInfo(packageName, 0)
-//            val appName = ri.activityInfo.name
-            var appName = ""
-            for (x in packageName.length - 1 downTo 0)
-                if (packageName[x] != '.') appName += packageName[x] else break
-            appName = appName.reversed()
+            val appName = packageManager.getApplicationLabel(
+                packageManager.getApplicationInfo(
+                    packageName,
+                    0
+                )
+            ).toString()
             val app = App(packageName, appName, icon)
             allApps.add(app)
         }
         return allApps.distinctBy { it.packageName } as ArrayList
     }
-
 
 
 }
