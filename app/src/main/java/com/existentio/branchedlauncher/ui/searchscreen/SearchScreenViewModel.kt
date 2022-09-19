@@ -24,7 +24,8 @@ class SearchScreenViewModel @Inject constructor(
             for (elem in 0 until apps.size) {
                 apps[elem].takeIf { apps[elem].name.lowercase().contains(textQuery) }
                     ?.let { filteredApps.add(it) }
-            } else filteredApps.clear()
+            }
+        else filteredApps.clear()
         return filteredApps
     }
 
